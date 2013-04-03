@@ -1,0 +1,11 @@
+---
+# tasks file for final_apache_push
+
+- set_fact: 
+- command: "ls {{ dest_path }}"
+  register: dir_out
+
+- set_fact:
+   dest_list: "{{ dest_list }} + [ '{{ dest_path }}/{{ item }}' ]"
+  with_items:
+   - "{{dir_out.stdout_lines}}"

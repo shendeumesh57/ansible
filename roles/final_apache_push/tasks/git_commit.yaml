@@ -1,0 +1,17 @@
+---
+# tasks file for apache_git_push
+
+- name: "git commit"
+  shell: |
+          git checkout "{{uname}}"
+          git add -A && git commit -m "future branch"
+          git push origin "{{uname}}"
+          gh auth login --with-token "{{gpwd}}"
+          gh pr create --title "Pull request title" --body "Pull request body"
+          
+  args:
+    chdir: "{{ item }}"
+  with_items: 
+    - "{{dest_list}}"
+  ignore_errors: true
+

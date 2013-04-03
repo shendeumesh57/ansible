@@ -1,11 +1,11 @@
 ---
 - hosts: web
   vars:
-  - server: slb10777
+  - server: ""
   - repo: ""
   - repo_var: []
   - path_var: []
-  - path: ['apache','var','cert']
+  - path: ['apache','var','data']
   
   
 

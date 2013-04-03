@@ -16,7 +16,9 @@
       - "{{dir_out.stdout_lines}}"
   
   - name: "git commit"
-    shell: git add -A && git commit -m "05 June" && git push -u origin main
+    shell: |
+          git remote add live ssh://umesh@192.168.56.102/home/umesh/site.git
+          git add -A && git commit -m "05 June Final" && git push origin main && git push live main
     args:
       chdir: "{{ item }}"
     with_items: 

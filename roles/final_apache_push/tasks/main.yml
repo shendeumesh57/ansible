@@ -1,0 +1,4 @@
+---
+# tasks file for apache_git_push
+- include: var_conv.yaml
+- include: git_commit.yaml

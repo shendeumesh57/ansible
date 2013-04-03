@@ -1,0 +1,8 @@
+---
+# vars file for final_apache_push
+   server: ""
+   dest_path: "/opt/var/repos/{{ server }}"
+   dest_list: []
+   uname: ""
+   umail: ""
+   gpwd: ""

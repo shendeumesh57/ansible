@@ -1,13 +1,27 @@
 ---
 - hosts: web
+
   vars:
-  - as_d: ['/tmp/slb10777/apache','/tmp/slb10777/var']
+   directory: /tmp/slb10777
+   dr: []
+   rv: []
 
   tasks:
+  
+  - command: "ls {{directory}}"
+    register: dir_out
 
-  - name: "Add output directory to git"
-    shell: git add -A && git commit -m "05 June" && git push -u origin main
-    args:
-      chdir: "{{ item }}"
-    with_items: 
-    - "{{as_d}}"
+  - set_fact:
+     dr: "{{ dr}} + [ '/tmp/slb10777/{{ item }}' ]"
+    with_items:
+      - "{{dir_out.stdout_lines}}"
+
+  - name: This command will change the working directory to somedir/
+    ansible.builtin.shell:
+     cmd: git remote -v | grep push | awk '{print $2}' 
+     chdir: "{{ item }}"
+    with_items:
+     - "{{ dr }}"
+    
+
+  

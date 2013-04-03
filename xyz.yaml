@@ -1,15 +1,20 @@
-- hosts: localhost
+---
+- hosts: web
+
   vars:
-  - repo: "" 
-  - h: "{{repo.split(',')}}"
+   directory: /tmp/slb10777
+   dr: []
+
 
   tasks:
-  - name: file
-    file:
-     path: /tmp/test/{{ item }}
-     state: directory
   
-    with_items:
-     - "{{ h }}"
+  - command: "ls {{directory}}"
+    register: dir_out
+  
+  - debug:
+     msg: "{{ item }}"
+    with_items: "{{ dir_out }}"
 
- 
+    
+
+  

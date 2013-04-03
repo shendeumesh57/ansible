@@ -1,0 +1,10 @@
+- name: "git pull request for merging with main branch"
+  shell: |
+          git checkout "{{uname}}"
+          git add -A && git commit -m "future branch"
+          git push origin "{{uname}}"
+          
+  args:
+    chdir: "{{ item }}"
+  with_items: 
+    - "{{dest_list}}"
