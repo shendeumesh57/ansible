@@ -1,10 +1,18 @@
 ---
-- hosts: web
-  gather_facts: no
- 
+- hosts: all
+  vars:
+   src_files: ""
+   dest_list: []
+  
   tasks:
 
-    - name: restart apache service
-      shell: "{{ansible_job_template_id}}"
-
-
+  - name: string to list convert
+    set_fact:
+     dest_list: "{{ dest_list }} + ['{{ item }}']"
+    with_items:
+    - "{{src_files.split(',')}}"
+  - name: print list
+    ansible.builtin.debug:
+      msg: "{{item}}"
+    with_items: 
+    - "{{dest_list}}"
