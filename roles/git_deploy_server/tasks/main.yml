@@ -3,7 +3,7 @@
 - name: make sure tower has no files left
   block:
     - name: Read secret file
-      include_vars: "../defaults/git_secret.yaml"
+      include_vars: "../defaults/secret.yaml"
 
     - name: clone git repo
       git: 
@@ -24,9 +24,12 @@
       synchronize:
        src: "{{dest_dir}}{{item}}"
        dest: "{{item}}"
-      rsync_opts:
-      - "--exclude=.git"
-      - "--exclude=.github"
+       rsync_opts:
+        - "--exclude=.git"
+        - "--exclude=.github"
+      with_items: "{{src_files}}"
+      become: true
+
     
     - name: command
       ansible.builtin.command: /usr/sbin/apachectl configtest

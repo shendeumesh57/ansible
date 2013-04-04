@@ -28,6 +28,8 @@
        recursive: yes
       delegate_to: localhost
       with_items: "{{src_files}}"
+      become: no
+
       
     - name: Git add files..., commit...,push
       shell: |
