@@ -1,0 +1,25 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+   - name: git push on GitHub
+     git:
+      repo: git@github.com:shendeumesh57/apache.git
+      dest: /home/umesh/ttt
+      #clone: no
+      #update: no
+
+
+
+   #- name: Commit changes
+   #  shell: |
+    #        git config --global user.name "shendeumesh57"
+    #        git config --global user.email "shendeumesh57@gmail.com"
+     #       git add -A && git commit -m "ansible  commit " && git push origin master
+#
+
+ #    args:
+  #    chdir: /var/www/html/
+
+...
