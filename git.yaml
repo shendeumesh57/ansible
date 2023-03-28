@@ -1,11 +1,11 @@
 ---
 
-- hosts: all
-  become: yes
+- hosts: localhost
+  #become: yes
   tasks:
    - name: git push on GitHub
      git:
-      repo: git@github.com:shendeumesh57/ansible.git
+      repo: 'git@github.com:shendeumesh57/ansible.git'
       #dest: /home/umesh/ttt
       clone: no
       update: no
@@ -20,6 +20,6 @@
 
 
      args:
-      chdir: /var/www/html/
+      chdir: /home/umesh/ansible
 
 ...
