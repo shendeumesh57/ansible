@@ -8,20 +8,20 @@
 
   tasks:
   
-  - set_fact: directory="/tmp/{{ server }}"
-  - command: "ls {{directory}}"
+  - set_fact: directory="/home/umesh/NA_git_repo/{{ server }}"
+  - command: "ls {{ directory }}"
     register: dir_out
 
   - set_fact:
-     dr: "{{ dr}} + [ '/tmp/{{ server }}/{{ item }}' ]"
+     dr: "{{ dr}} + [ '{{ directory }}/{{ item }}' ]"
     with_items:
       - "{{dir_out.stdout_lines}}"
   
   - name: "git commit"
     shell: |
-          git add -A && git commit -m "{{ tower_job_id }}"
+          git add -A && git commit -m " {{ tower_job_id }} "
           git push origin main
-          git push live main
+          git push server main
     args:
       chdir: "{{ item }}"
     with_items: 
