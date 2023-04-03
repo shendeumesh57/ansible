@@ -15,7 +15,7 @@
      shell: |
             git config --global user.name "shendeumesh57"
             git config --global user.email "shendeumesh57@gmail.com"
-            git add . && git commit -m "ansible  commit " && git push -u origin main
+            git add . && git commit -m echo "$commit" && git push -u origin main
 
 
      args:
