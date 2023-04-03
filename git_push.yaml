@@ -1,0 +1,35 @@
+---
+- hosts: all
+
+  vars:
+   server: ""
+   directory: ""
+   dr: []
+
+  tasks:
+  
+  - set_fact: directory="/tmp/{{ server }}"
+  - command: "ls {{directory}}"
+    register: dir_out
+
+  - set_fact:
+     dr: "{{ dr}} + [ '/tmp/{{ server }}/{{ item }}' ]"
+    with_items:
+      - "{{dir_out.stdout_lines}}"
+  
+  - name: "git commit"
+    shell: |
+          git add -A && git commit -m "06 June Final"
+          git push origin main
+          git push live main
+    args:
+      chdir: "{{ item }}"
+    with_items: 
+    - "{{dr}}"
+    ignore_errors: true
+    
+   
+
+
+      
+
