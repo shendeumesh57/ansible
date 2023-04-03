@@ -8,7 +8,7 @@
 
   tasks:
   
-  - set_fact: directory="/home/umesh/NA_git_repo/{{ server }}"
+  - set_fact: directory="/home/xl8qh4h/NA_git_repo/{{ server }}"
   - command: "ls {{ directory }}"
     register: dir_out
 

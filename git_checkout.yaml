@@ -5,7 +5,7 @@
   - repo: ""
   - repo_var: []
   - path_var: []
-  - path: ['var','data']
+  - path: ['apache','cert']
   
   
 
@@ -20,7 +20,7 @@
 
   - name: Path variables
     set_fact:
-     path_var: "{{ path_var}} + [ '/home/umesh/NA_git_repo/{{ server }}/{{ item[0] }}' ]"
+     path_var: "{{ path_var}} + [ '/home/xl8qh4h/NA_git_repo/{{ server }}/{{ item[0] }}' ]"
     with_nested:
     - "{{ path }}"
     - "{{ repo_var }}"
