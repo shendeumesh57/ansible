@@ -1,10 +1,10 @@
 ---
-- hosts: localhost
+- hosts: all
   #become: yes
   tasks:
    - name: git push on GitHub
      git:
-      repo: 'https://github.com/shendeumesh57/ansible.git'
+      repo: 'https://github.com/shendeumesh57/webtest.git'
       #dest: /home/umesh/ttt
       clone: no
       update: no
@@ -19,6 +19,6 @@
 
 
      args:
-      chdir: /home/umesh/ansible
+      chdir: /home/umesh/webtest
 
 ...
