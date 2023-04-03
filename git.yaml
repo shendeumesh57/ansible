@@ -1,24 +1,33 @@
 ---
-- hosts: all
+- hosts: localhost
   #become: yes
   tasks:
    - name: git push on GitHub
      git:
-      repo: 'git@github.com:shendeumesh57/webtest.git'
+      repo: 'git@github.com:shendeumesh57/ansible.git'
       #dest: /home/umesh/ttt
       clone: no
       update: no
+   
+   - name: Display the availble timestamp format in Ansible
+     shell: 'date "+DATE:%D TIME:%T"'
+     register: dt
 
+     
+   - name: print date
+     debug:
+      msg: "{{ dt.stdout_lines }}"
+     
 
 
    - name: Commit changes
      shell: |
             git config --global user.name "shendeumesh57"
             git config --global user.email "shendeumesh57@gmail.com"
-            git add . && git commit -m "ansible  commit " && git push -u origin main
+            git add . && git commit -m "{{ dt.stdout_lines }}" && git push -u origin main
 
 
      args:
-      chdir: /home/umesh/webtest
+      chdir: /home/umesh/ansible
 
 ...
