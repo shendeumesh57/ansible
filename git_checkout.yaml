@@ -44,4 +44,5 @@
      dest: "{{ item.repo_path }}" 
     with_items:
      - "{{ git_and_path }}"
+    delegate_to: localhost
     
