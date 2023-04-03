@@ -19,7 +19,7 @@
   
   - name: "git commit"
     shell: |
-          git add -A && git commit -m "06 June Final"
+          git add -A && git commit -m "{{ tower_job_id }}"
           git push origin main
           git push live main
     args:
