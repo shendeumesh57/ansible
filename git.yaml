@@ -24,7 +24,7 @@
      shell: |
             git config --global user.name "shendeumesh57"
             git config --global user.email "shendeumesh57@gmail.com"
-            git add . && git commit -m "{{ dt.stdout_lines }}" && git push -u origin main
+            git add . && git commit -m "{{dt.stdout_lines}}" && git push -u origin main
 
 
      args:
