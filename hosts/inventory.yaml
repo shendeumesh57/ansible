@@ -1,6 +1,8 @@
-[Web]
-test01 ansible_host=192.168.56.102
-test02 ansible_host=192.168.56.102
-test03 ansible_host=192.168.56.102
-test04 ansible_host=192.168.56.102
-test05 ansible_host=192.168.56.102
+linux:
+  hosts:
+    server1:
+      ansible_host: 192.168.56.101
+    server2:
+      ansisle_host: 192.168.56.102
+    server3:
+      ansible_host: 192.168.56.103
