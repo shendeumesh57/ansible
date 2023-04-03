@@ -4,7 +4,7 @@
   tasks:
    - name: git push on GitHub
      git:
-      repo: 'https://github.com/shendeumesh57/webtest.git'
+      repo: 'https://github.com/shendeumesh57/test.git'
       #dest: /home/umesh/ttt
       clone: no
       update: no
@@ -19,6 +19,6 @@
 
 
      args:
-      chdir: /home/umesh/webtest
+      chdir: /home/umesh/test
 
 ...
