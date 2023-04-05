@@ -1,0 +1,21 @@
+---
+- name: PAUSE MODULE - Getting user input when running the playbook 
+  hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:
+    
+#    - name: Pause for 3 seconds
+#      ansible.builtin.pause:
+#        seconds: 3
+    
+    - name: Using pause module to get user input
+      ansible.builtin.pause:
+        prompt: "Choose the release version :: "
+        echo: True
+      register: response
+
+    - name: Print the user response
+      ansible.builtin.debug:
+        var: response.user_input
