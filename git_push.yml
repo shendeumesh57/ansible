@@ -1,0 +1,77 @@
+---
+- hosts: web
+  tasks:
+   - name: git push on GitHub
+     git:
+      repo: 'git@github.com:shendeumesh57/apache.git'
+      clone: no
+      update: no
+   
+   - name: git status
+     shell: 'git status'
+     register: gt
+     args:
+      chdir: /var/www/html
+   
+   - block:
+     - name: "Checking Git Status" 
+       debug:
+        msg: "Hi Colligue, There is no changes made in apache server"
+     
+     - name: "---------------------- End Playbook ------------------"
+       meta: end_play
+
+     when: gt.stdout_lines[-1] == "nothing to commit, working directory clean"
+
+#############################################################################################################
+
+## Git Commit
+   
+   - name: "Display the availble timestamp format in Ansible"
+     shell: 'date "+DATE:%D TIME:%T"'
+     register: dt
+
+   - name: user input for commit
+     pause: 
+      prompt: "Please enter the RITM/CTASK/REQ number :- "  
+      echo: True
+     register: response
+    
+   - name: git username
+     pause:
+      prompt: "Please enter your git username"
+      echo: True
+     register: userid
+
+   - name: git E-mail ID
+     pause:
+      prompt: "Please enter your git email-id"
+      echo: True
+     register: emailid
+  
+
+   - name: Print the user response
+     debug:
+      var: response.user_input
+   - name: Commit changes
+     shell: |
+            git config --global user.name "{{userid.user_input}}"
+            git config --global user.email "{{emailid.user_input}}"
+            git add -A && git commit -m "{{response.user_input}}" && git push -u origin main
+     args:
+      chdir: /var/www/html
+     
+#     notify:
+#     - Restart apache
+
+
+#  handlers:
+#   - name: Restart apache
+#     service:
+#      name: httpd
+#      state: restarted
+
+      
+      
+...
+
