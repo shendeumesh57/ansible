@@ -30,9 +30,11 @@
      shell: 'date "+DATE:%D TIME:%T"'
      register: dt
 
-   
+   - name: "print date"
+     debug:
+      msg: "{{ dt.stdout_lines }}"
    - name: Commit changes
-     shell: git add -A && git commit -m "{{dt.stdout_lines}}" && git push -u origin main
+     shell: git add -A && git commit -m "{{ dt.stdout_lines }}" && git push -u origin main
            # git config --global user.name "{{userid.user_input}}"
            # git config --global user.email "{{emailid.user_input}}"
             
