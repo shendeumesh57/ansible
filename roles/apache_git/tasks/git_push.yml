@@ -1,0 +1,42 @@
+---
+   - name: "Checking GitHub repository"
+     git:
+      repo: 'git@github.com:shendeumesh57/apache.git'
+      clone: no
+      update: no
+   
+   - name: git status
+     shell: 'git status'
+     register: gt
+     args:
+      chdir: /var/www/html
+   
+   - block:
+     - name: "Checking Git Status" 
+       debug:
+        msg: "Hi Colleague, There is no changes made on the server."
+     
+     - name: End of the play...!
+       meta: end_play
+     when: gt.stdout_lines[-1] == "nothing to commit, working directory clean"
+
+#############################################################################################################
+
+## Git Commit
+   
+   - name: "Display the availble timestamp format in Ansible"  ## used for autocomit
+     shell: 'date "+DATE:%D TIME:%T"'
+     register: dt
+
+   - name: "print date"
+     debug:
+      msg: "{{ dt.stdout_lines }}"
+   - name: Commit changes
+     shell: git add -A && git commit -m "{{ dt.stdout_lines }}" && git push -u origin main
+           # git config --global user.name "{{userid.user_input}}"
+           # git config --global user.email "{{emailid.user_input}}"
+            
+     args:
+      chdir: /var/www/html
+...
+
