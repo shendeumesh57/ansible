@@ -40,5 +40,16 @@
             
      args:
       chdir: /var/www/html
+
+      notify:
+      - Restart apache
+
+
+  handlers:
+   - name: Restart apache
+     service:
+      name: httpd
+      state: restarted
+
 ...
 
