@@ -5,10 +5,12 @@
     command: /usr/sbin/httpd -t
     ignore_errors: yes
     register: op
+
   - block:
     - name: Apache config check
       debug:
        msg: "Apache configuration is invalid. Please check before re-running the playbook."
+       
     - name:
       meta: end_play   
     when: 
