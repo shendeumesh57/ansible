@@ -32,10 +32,10 @@
 
    
    - name: Commit changes
-     shell: |
+     shell: git add -A && git commit -m "{{dt.stdout_lines}}" && git push -u origin main
            # git config --global user.name "{{userid.user_input}}"
            # git config --global user.email "{{emailid.user_input}}"
-            git add -A && git commit -m "{{response.user_input}}" && git push -u origin main
+            
      args:
       chdir: /var/www/html
 ...
