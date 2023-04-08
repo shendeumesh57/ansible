@@ -40,7 +40,6 @@
             
      args:
       chdir: /var/www/html
-
       notify:
       - Restart apache
 
