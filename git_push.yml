@@ -1,5 +1,6 @@
 ---
-- hosts: web
+- hosts: all
+  
   tasks:
    - name: "Checking GitHub repository"
      git:
@@ -40,8 +41,8 @@
             
      args:
       chdir: /var/www/html
-      notify:
-      - Restart apache
+     notify:
+     - Restart apache
 
 
   handlers:
