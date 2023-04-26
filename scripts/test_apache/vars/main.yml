@@ -1,0 +1,10 @@
+---
+# vars file for apache_git
+repo_1: 'git@github.com:shendeumesh57/apache.git'
+dir_1: "/var/www/html"
+
+repo_2: 'git@github.com:shendeumesh57/192_168_56_102_opt_cert.git'
+dir_2: "/opt/cert"
+
+repo_3: 'git@github.com:shendeumesh57/192_168_56_102_etc_httpd.git'
+dir_3: "/etc/httpd"

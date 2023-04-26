@@ -1,0 +1,45 @@
+---
+   - name: "Checking GitHub repository --> /var/www/html"
+     git:
+      repo: "{{ repo_1 }}"
+      clone: no
+      update: no
+   
+   - name: 
+     shell: 'git status'
+     register: gt
+     args:
+      chdir: "{{ dir_1 }}"
+   - name:  ## used for autocomit
+     shell: 'date "+DATE:%D TIME:%T"'
+     register: dt
+   
+   - block:
+     - name: Git commit!
+       shell: git add -A && git commit -m "{{ dt.stdout_lines }}" && git push -u origin main
+
+       args:
+        chdir: "{{ dir_1 }}"
+      
+     - name: "/var/www/html commit....."
+       debug:
+        msg: "Successfully Commited"
+     - name: checking apache configuration
+       import_tasks: apache_config.yml
+     
+     - name: restarting apache
+       import_tasks: service.yml
+     
+      
+     when: gt.stdout_lines[-1] != "nothing to commit, working directory clean"
+
+
+   
+   - block:
+     - name:
+       debug:
+        msg: "No changes found under the /var/www/html"
+     when: gt.stdout_lines[-1] == "nothing to commit, working directory clean"
+
+
+

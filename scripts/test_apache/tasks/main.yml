@@ -1,0 +1,5 @@
+---
+- include: git_push.yml
+- include: git_push1.yml
+- include: git_push2.yml
+

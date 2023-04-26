@@ -1,0 +1,4 @@
+---
+- name: apache restarted
+  debug:
+   msg: "The Apache service restarted successfully"
