@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  tasks:
+  - name: Checking Connectivity From Ansible Tower to Apache server
+    debug:
+     msg: "Connectivity successfuly established with {{ ansible_hostname }}"
+
+    when: ansible_hostname == "slb20902"
