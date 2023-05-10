@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: none
   tasks:
   - name: Checking Connectivity From Ansible Tower to Apache server
     debug:
