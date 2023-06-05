@@ -1,0 +1,20 @@
+- hosts: localhost
+  vars:
+  - repo: []
+  - path: []
+  - server: ""
+
+  tasks:
+  - name:
+    debug:
+     msg: "{{ path | length }}"
+    with_nested:
+      - "{{repo.split(',')}}"
+  
+  - name: Create a List variable and print it
+    set_fact: 
+        path : ['var','www']
+    when: ("'{{ repo | length }}' == 2)
+  - name: Print the Countries after adding element
+    debug:
+     msg: "{{ path }}"

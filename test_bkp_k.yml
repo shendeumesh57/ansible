@@ -1,0 +1,20 @@
+---
+- hosts: web
+  vars:
+  - repo: "" 
+  - path: /tmp/slb20902/"{{ item }}"
+
+  tasks:
+  - name:
+    git:
+     repo: "{{ item }}"
+     dest: "{{ path }}"
+     clone: yes
+    with_items:
+      - "{{repo.split(',')}}"
+      - "{{ path }}"
+
+   
+      
+      
+

@@ -1,0 +1,11 @@
+---
+- hosts: web
+  vars:
+    - repo_1: 'git@github.com:shendeumesh57/apache.git'
+    
+  tasks:
+  
+  - name: Git repo checkout
+    git:
+     repo: "{{ repo_1 }}"
+     dest: /tmp/slb20902

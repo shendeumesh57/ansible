@@ -1,0 +1,15 @@
+- hosts: localhost
+  vars:
+  - repo: "" 
+  - h: "{{repo.split(',')}}"
+
+  tasks:
+  - name: file
+    file:
+     path: /tmp/test/{{ item }}
+     state: directory
+  
+    with_items:
+     - "{{ h }}"
+
+ 

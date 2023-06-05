@@ -1,9 +1,22 @@
 ---
-- hosts: all
-  vars:
-    greetings: Hello everyone!
-
+- hosts: web
   tasks:
-  - name: Ansible Simple Variable Example Usage
-    debug:
-      msg: " {{greetings}} "
+
+  - name: check config apache
+    command: /usr/sbin/httpd -t
+    ignore_errors: yes
+    register: op
+  - block:
+    - name: Apache config check
+      debug:
+       msg: "Apache configuration is invalid. Please check before re-running the playbook."
+    - name:
+      meta: end_play   
+    when: 
+      - op.stderr != "Syntax OK"
+
+  - name: Restart apache
+    service:
+     name: httpd
+     state: restarted
+    become: true

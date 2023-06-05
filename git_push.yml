@@ -1,5 +1,7 @@
 ---
-- hosts: all
+- hosts: web
+  
+
   
   tasks:
    - name: "Checking GitHub repository"
@@ -41,15 +43,14 @@
             
      args:
       chdir: /var/www/html
-     notify:
-     - Restart apache
 
+     
 
-  handlers:
-   - name: Restart apache
-     service:
+   - name: restart service
+     service: 
       name: httpd
       state: restarted
-
+     become: true
+     #become_method: sudo
 ...
 

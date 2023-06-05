@@ -1,0 +1,21 @@
+- hosts: localhost
+  vars:
+  - repo: ['a',b]
+  #- path: ['var','www','html']
+  - path: []
+  - server: 2
+
+
+  tasks:
+  - set_fact: one_fact="something" other_fact="{{ repo | length }}"
+  - name:
+    debug:
+     msg: "{{ other_fact }}"
+    register: path_length 
+  - name: Create a List variable and print it
+    set_fact: 
+        path : ['var','www']
+    when: other_fact | int == 2
+  - name: Print the Countries after adding element
+    debug:
+     msg: "{{ path }}"

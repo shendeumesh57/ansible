@@ -1,0 +1,12 @@
+- hosts: localhost
+  vars:
+  - repo: "" 
+  - path: ['var','www','html']
+  - server: "slb90202"
+
+  tasks:
+  - name:
+    debug:
+     msg: "{{ path | length }}"
+    with_nested:
+      - "{{repo.split(',')}}"

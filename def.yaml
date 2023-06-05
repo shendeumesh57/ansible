@@ -1,0 +1,14 @@
+- hosts: localhost
+  vars:
+  - repo: "" 
+  - h: "{{repo.split(',')}}"
+
+  tasks:
+
+
+
+  - name:
+    debug:
+     msg: "{{ item }}"
+    with_items:
+      - "{{ h }}"

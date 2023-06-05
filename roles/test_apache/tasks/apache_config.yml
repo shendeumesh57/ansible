@@ -9,7 +9,7 @@
   - block:
     - name: Apache config check
       debug:
-       msg: "Apache configuration is invalid. Please check before re-running the playbook."
+       msg: "Apache configuration is invalid. Please check before re-running the playbook. Fix this manualy"
        
     - name:
       meta: end_play   

@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  vars:
+  - repo: "" 
+  - Countries: []
+  - server: "slb20902"
+ 
+  tasks:
+
+  
+  - set_fact:
+     Countries: "{{ Countries}} + [ '/tmp/{{ server }}/{{ item }}' ]"
+    with_items:
+      - "{{repo.split(',')}}"
+
+  - debug: 
+     msg: "{{ Countries }}"
+  

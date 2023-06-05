@@ -1,0 +1,13 @@
+---
+- hosts: web
+  vars:
+  - as_d: ['/tmp/slb10777/apache','/tmp/slb10777/var']
+
+  tasks:
+
+  - name: "Add output directory to git"
+    shell: git add -A && git commit -m "05 June" && git push -u origin main
+    args:
+      chdir: "{{ item }}"
+    with_items: 
+    - "{{as_d}}"

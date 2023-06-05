@@ -1,7 +1,7 @@
 ---
    - name: "Checking GitHub repository"
      git:
-      repo: "{{ repo_1 }}"
+      repo: "{{ repo_2 }}"
       clone: no
       update: no
    
@@ -9,12 +9,12 @@
      shell: 'git status'
      register: gt
      args:
-      chdir: "{{ dir_1 }}"
+      chdir: "{{ dir_2 }}"
    
    - block:
      - name: "Checking Git Status" 
        debug:
-        msg: "There is no changes made on the server."
+        msg: "Ignoring /opt/cert directory"
      
      - name: 
        meta: end_play
@@ -34,7 +34,6 @@
            # git config --global user.email "{{emailid.user_input}}"
             
      args:
-      chdir: "{{ dir_1 }}"
-     
-
+      chdir: "{{ dir_2 }}"
+...
 

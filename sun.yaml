@@ -1,0 +1,20 @@
+- hosts: localhost
+  vars:
+  - repo: [a,b,c]
+  - h: [1,2,3]
+
+  tasks:
+  - set_fact:
+     host_network_info: "{{ dict(repo | zip(h)) | 
+                        dict2items(key_name='rr', value_name='hh') }}"
+  - name: add several users
+    debug:
+      msg: '"{{ item.rr }}" "{{ item.hh}}"'
+
+  - name:
+    git:
+     repo: "{{ item.rr }}"
+     dest: "{{ item.hh }}" 
+     
+    with_items:
+     - "{{ host_network_info }}"

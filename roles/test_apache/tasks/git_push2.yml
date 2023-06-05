@@ -1,0 +1,45 @@
+---
+   - name: "Checking GitHub repository --> /etc/httpd"
+     git:
+      repo: "{{ repo_3 }}"
+      clone: no
+      update: no
+   
+   - name: 
+     shell: 'git status'
+     register: gt
+     args:
+      chdir: "{{ dir_3 }}"
+   - name:  ## used for autocomit
+     shell: 'date "+DATE:%D TIME:%T"'
+     register: dt
+   
+   - block:
+     - name: Git commit!
+       shell: git add -A && git commit -m "{{ dt.stdout_lines }}" && git push -u origin main
+
+       args:
+        chdir: "{{ dir_3 }}"
+      
+     - name: "/etc/httpd commit....."
+       debug:
+        msg: "Successfully Commited"
+     - name: checking apache configuration
+       import_tasks: apache_config.yml
+     
+     - name: restarting apache
+       import_tasks: service.yml
+     
+      
+     when: gt.stdout_lines[-1] != "nothing to commit, working directory clean"
+
+
+   
+   - block:
+     - name:
+       debug:
+        msg: "No changes found under the /etc/httpd"
+     when: gt.stdout_lines[-1] == "nothing to commit, working directory clean"
+
+
+

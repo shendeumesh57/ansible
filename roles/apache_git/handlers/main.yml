@@ -1,2 +1,7 @@
 ---
 # handlers file for apache_git
+- name: restart apache
+  service: 
+   name: httpd 
+   state: restarted 
+  become: true

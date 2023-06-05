@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  vars:
+  - repo: "" 
+  - path: /tmp/slb20902
+
+  tasks:
+  - name:
+    debug:
+     msg: "{{ item}}"
+    with_nested:
+      - "{{repo.split(',')}}"
+      - "{{ path }}"
+   
+      
+      
+

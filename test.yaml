@@ -1,8 +1,39 @@
 ---
-- hosts: all
-  tasks:
-  - name: Checking Connectivity From Ansible Tower to Apache server
-    debug:
-     msg: "Connectivity successfuly established with {{ ansible_hostname }}"
+- hosts: web
 
-    when: ansible_hostname == "slb20902"
+  vars:
+   directory: /tmp/slb107773
+   dr: []
+
+  tasks:
+  
+  - command: "ls {{directory}}"
+    register: dir_out
+
+  - set_fact:
+     dr: "{{ dr}} + [ '/tmp/slb10777/{{ item }}' ]"
+    with_items:
+      - "{{dir_out.stdout_lines}}"
+  
+  - name: "git commit"
+    shell: git add -A && git commit -m "05 June" && git push -u origin main
+    args:
+      chdir: "{{ item }}"
+    with_items: 
+    - "{{dr}}"
+    ignore_errors: true
+    register: output
+    failed_when: >
+      output.msg != "" and
+      ("error" in output.msg or
+      "conflict" in output.msg or
+      "Errno" in output.msg or
+      "fatal" in output.msg or
+      (output.stdout != "" and
+      "nothing to commit, working tree clean" not in output.stdout) or
+      (output.stderr != ""))
+   
+
+
+      
+

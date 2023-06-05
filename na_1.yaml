@@ -1,0 +1,47 @@
+---
+- hosts: web
+  vars:
+  - server: slb20975
+  - repo: ""
+  - repo_var: []
+  - path_var: []
+  - path: ['apache','httpd','html']
+  
+  
+
+  tasks:
+
+  - name: Fetching repo variables from jenkins
+    set_fact:
+     repo_var: "{{ repo_var}} + [ '{{ item }}' ]"
+    with_items:
+      - "{{repo.split(',')}}"
+  
+
+  - name: Path variables
+    set_fact:
+     path_var: "{{ path_var}} + [ '/tmp/{{ server }}/{{ item[0] }}' ]"
+    with_nested:
+    - "{{ path }}"
+    - "{{ repo_var }}"
+    #when: (item[0] == item[1])
+    when: (item[0] in item[1] )
+  
+  - set_fact:
+     git_and_path: "{{ dict(repo_var | zip(path_var)) | 
+                      dict2items(key_name='repo_name', value_name='repo_path') }}"
+
+  - name: directory creation
+    file:
+     path: "{{ item }}"
+     state: directory
+    with_items:
+     - "{{ path_var }}"
+  
+  - name: add several users
+    git:
+     repo: "{{ item.repo_name }}"
+     dest: "{{ item.repo_path }}" 
+    with_items:
+     - "{{ git_and_path }}"
+    
