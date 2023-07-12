@@ -1,0 +1,7 @@
+---
+  - name: directory creating .....
+    file:
+     path: "{{ item }}"
+     state: directory
+    with_items:
+     - "{{ dest_path }}"

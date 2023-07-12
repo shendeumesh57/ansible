@@ -1,0 +1,11 @@
+---
+  - name: creating sub branch
+    shell: |
+           git checkout -b "{{uname}}"
+           
+    args:
+      chdir: "{{ item }}"
+    
+    with_items: 
+    - "{{dest_path}}"
+    ignore_errors: true

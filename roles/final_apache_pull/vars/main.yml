@@ -1,0 +1,26 @@
+---
+# vars file for final_apache_pull
+server: ""  # server name input parameter
+directory: "" # directory name input parameter
+directory_list: [] # converted string into list
+dest_path: [] # absolute path for destination
+base_path: "/home/xl8qh4h/NA_git_repo" # base path for dir
+uname: ""
+umail: ""
+gtoken: ""
+servers_repo_dir_path:
+  - server: "s1"
+    repo:
+    - log: 'https://{{ uname | urlencode }}:{{ gpwd | urlencode }}@g/prodA.git'
+      cert: 'https://{{ uname | urlencode }}:{{ gpwd | urlencode }}@github.com/shendeumesh57/prodB.git'
+      httpd: 'https://{{ uname | urlencode }}:{{ gpwd | urlencode }}@github.com/shendeumesh57/prodC.git'
+  - server: "s2"
+    repo:
+    - log: ''
+      cert: ''
+      httpd: ''
+  - server: "s3"
+    repo:
+    - log: 'https://github.com/shendeumesh57/prodA.git'
+      cert: 'https://github.com/shendeumesh57/prodB.git'
+      httpd: 'https://github.com/shendeumesh57/prodC.git'

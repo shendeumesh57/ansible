@@ -1,0 +1,17 @@
+---
+# tasks file for apache_with_git
+
+  - name: String to list conversion 
+    set_fact:
+     directory_list: "{{ directory_list }} + [ '{{ item }}' ]"
+    with_items:
+      - "{{directory.split(',')}}"
+  
+  - name: Destination Path 
+    set_fact:
+     dest_path: "{{ dest_path }} + [ '{{ base_path }}/{{ server }}/{{ item }}' ]"
+    with_items:
+    - "{{ directory_list }}"
+
+  
+  

@@ -1,0 +1,10 @@
+---
+  - name: "git cloning"
+    git:
+     repo: '{{item.1.repo.0[item[0]]}}'
+     dest: '{{ base_path }}/{{ server }}/{{item[0]}}'
+     version: main
+    with_nested:
+    - "{{directory_list}}"
+    - "{{servers_repo_dir_path}}"
+    when: (item.1.server in '{{server}}' and item[0] in item.1.repo.0.keys())
