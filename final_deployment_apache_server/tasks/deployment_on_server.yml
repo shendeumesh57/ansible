@@ -1,0 +1,12 @@
+---
+  - name: Test2
+    shell: | 
+              git remote add live "{{ item.1[directory]}}"
+              git push live
+    args:
+      chdir: /tmp/{{item.0.server}}/{{directory}}
+    with_subelements:
+      - "{{ families_2 }}"
+      - url
+    when: ( '{{server}}' in item.0.server and '{{directory}}' in item.1.keys())
+    become: true

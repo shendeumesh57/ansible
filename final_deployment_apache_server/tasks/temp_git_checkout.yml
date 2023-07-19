@@ -1,0 +1,10 @@
+---
+  - name: Test2
+    git:
+      repo: "{{ item.1[directory]}}"
+      dest: /tmp/{{item.0.server}}/{{directory}}
+      version: main
+    with_subelements:
+      - "{{ families_1 }}"
+      - repo
+    when: ( '{{server}}' in item.0.server and '{{directory}}' in item.1.keys())

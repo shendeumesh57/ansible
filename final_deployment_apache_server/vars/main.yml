@@ -1,0 +1,18 @@
+---
+# vars file for final_apache_pull
+server: ""  # server name input parameter
+directory: "" # directory name input parameter
+uname: ""
+gpwd: ""
+
+families_1:
+  - server: server1
+    repo:
+      - httpd: 'https://{{ uname | urlencode }}:{{ gpwd | urlencode }}@github.com/shendeumesh57/httpd.git'
+        html: 'https://{{ uname | urlencode }}:{{ gpwd | urlencode }}@github.com/shendeumesh57/html.git'
+
+families_2:
+  - server: server1
+    url:
+      - httpd: '/home/umesh/httpd.git'
+        html: '/home/umesh/html.git'

@@ -1,0 +1,9 @@
+---
+- hosts: web
+  gather_facts: yes
+  vars_files:
+
+  tasks:
+
+  roles:
+   - ../roles/final_deployment_apache_server
