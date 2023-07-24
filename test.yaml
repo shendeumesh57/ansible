@@ -1,41 +1,10 @@
 ---
 - hosts: web
-
-  vars:
-   directory: /tmp/slb107773
-   dr: []
-
+  gather_facts: no
+ 
   tasks:
-  
-  - command: "ls {{directory}}"
-    register: dir_out
 
-  - set_fact:
-     dr: "{{ dr}} + [ '/tmp/slb10777/{{ item }}' ]"
-    with_items:
-      - "{{dir_out.stdout_lines}}"
-  
-  - name: "git commit"
-    shell: |
-          git remote add live ssh://umesh@192.168.56.102/home/umesh/site.git
-          git add -A && git commit -m "05 June Final" && git push origin main && git push live main
-    args:
-      chdir: "{{ item }}"
-    with_items: 
-    - "{{dr}}"
-    ignore_errors: true
-    register: output
-    failed_when: >
-      output.msg != "" and
-      ("error" in output.msg or
-      "conflict" in output.msg or
-      "Errno" in output.msg or
-      "fatal" in output.msg or
-      (output.stdout != "" and
-      "nothing to commit, working tree clean" not in output.stdout) or
-      (output.stderr != ""))
-   
+    - name: restart apache service
+      shell: "{{ansible_job_template_id}}"
 
-
-      
 

@@ -4,23 +4,18 @@ server: ""  # server name input parameter
 directory: "" # directory name input parameter
 directory_list: [] # converted string into list
 dest_path: [] # absolute path for destination
-base_path: "/home/xl8qh4h/NA_git_repo" # base path for dir
+base_path: "/opt/var/repos" # base path for dir
 uname: ""
 umail: ""
-gtoken: ""
+gpwd: ""
 servers_repo_dir_path:
-  - server: "s1"
+  - server: "server1"
     repo:
-    - log: 'https://{{ uname | urlencode }}:{{ gpwd | urlencode }}@g/prodA.git'
-      cert: 'https://{{ uname | urlencode }}:{{ gpwd | urlencode }}@github.com/shendeumesh57/prodB.git'
-      httpd: 'https://{{ uname | urlencode }}:{{ gpwd | urlencode }}@github.com/shendeumesh57/prodC.git'
-  - server: "s2"
+    - httpd: 'https://{{ uname | urlencode }}:{{ gpwd | urlencode }}@github.com/shendeumesh57/httpd.git'
+      html: 'https://{{ uname | urlencode }}:{{ gpwd | urlencode }}@github.com/shendeumesh57/html.git'
+     
+
+  - server: "server2"
     repo:
-    - log: ''
-      cert: ''
-      httpd: ''
-  - server: "s3"
-    repo:
-    - log: 'https://github.com/shendeumesh57/prodA.git'
-      cert: 'https://github.com/shendeumesh57/prodB.git'
-      httpd: 'https://github.com/shendeumesh57/prodC.git'
+    - httpd: 'https://github.com/shendeumesh57/prodA.git'
+      html: 'https://github.com/shendeumesh57/prodB.git'
