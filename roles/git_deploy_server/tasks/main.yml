@@ -28,6 +28,7 @@
         - "--exclude=.git"
         - "--exclude=.github"
       with_items: "{{src_files}}"
+      become: true
 
     
     - name: command
