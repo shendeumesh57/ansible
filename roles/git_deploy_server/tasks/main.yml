@@ -3,7 +3,7 @@
 - name: make sure tower has no files left
   block:
     - name: Read secret file
-      include_vars: "../defaults/git_secret.yaml"
+      include_vars: "../defaults/secret.yaml"
 
     - name: clone git repo
       git: 
