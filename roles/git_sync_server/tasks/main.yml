@@ -28,6 +28,9 @@
        recursive: yes
       delegate_to: localhost
       with_items: "{{src_files}}"
+      become: true
+      become_method: sudo
+      become_user: umesh
       
     - name: Git add files..., commit...,push
       shell: |
