@@ -27,6 +27,8 @@
        rsync_opts:
         - "--exclude=.git"
         - "--exclude=.github"
+      with_items: "{{src_files}}"
+
     
     - name: command
       ansible.builtin.command: /usr/sbin/apachectl configtest
