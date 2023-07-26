@@ -2,7 +2,7 @@
 # vars file for git_sync_server
 src_files:
  - /etc/httpd/
- - /etc/hosts
+ #- /etc/hosts
 
 
 git_repo: 'https://{{g_token}}@github.com/shendeumesh57/NA.git'
