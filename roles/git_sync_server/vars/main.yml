@@ -1,7 +1,8 @@
 ---
 # vars file for git_sync_server
 src_files:
- - /etc/httpd/
+ #- /etc/httpd/
+ - /var/log/httpd/
  #- /etc/hosts
  #- /var/www/html/
  #- /usr/local/src/
