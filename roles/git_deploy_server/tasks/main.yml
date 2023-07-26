@@ -1,0 +1,48 @@
+---
+# tasks file for git_sync_server
+- name: make sure tower has no files left
+  block:
+    - name: Read secret file
+      include_vars: "../defaults/git_secret.yaml"
+
+    - name: clone git repo
+      git: 
+       repo: "{{git_repo}}"
+       dest: "{{local_path}}"
+       version: main
+       force: yes
+      delegate_to: localhost
+
+    - name: Check if destination directory exists
+      file:
+       path: "{{dest_dir}}{{item | dirname}}"
+       state: directory
+      delegate_to: localhost
+      with_items: "{{src_files}}"
+
+    - name: Synchronization using rsync protocol (push)
+      synchronize:
+       src: "{{dest_dir}}{{item}}"
+       dest: "{{item}}"
+      rsync_opts:
+      - "--exclude=.git"
+      - "--exclude=.github"
+    
+    - name: command
+      ansible.builtin.command: /usr/sbin/apachectl configtest
+      register: myoutput
+
+    - name: Restart service httpd, in all cases
+      ansible.builtin.service:
+       name: httpd
+       state: restarted
+      when: myoutput.rc == 0
+      become: true
+
+  always:
+    - name: delete destination directory
+      file:
+       path: "{{local_path}}"
+       state: absent
+      delegate_to: localhost
+    

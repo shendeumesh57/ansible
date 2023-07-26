@@ -1,0 +1,50 @@
+---
+# tasks file for git_sync_server
+- name: make sure tower has no files left
+  block:
+    - name: Read secret file
+      include_vars: "../defaults/secret.yaml"
+
+    - name: clone git repo
+      git: 
+       repo: "{{git_repo}}"
+       dest: "{{local_path}}"
+       version: main
+       force: yes
+      delegate_to: localhost
+
+    - name: Check if destination directory exists
+      file:
+       path: "{{dest_dir}}{{item | dirname}}"
+       state: directory
+      delegate_to: localhost
+      with_items: "{{src_files}}"
+
+    - name: sync files and directory
+      synchronize:
+       src: "{{item}}"
+       dest: "{{dest_dir}}{{item}}"
+       mode: pull
+       recursive: yes
+      delegate_to: localhost
+      with_items: "{{src_files}}"
+      
+    - name: Git add files..., commit...,push
+      shell: |
+              git config user.name "{{user}}"
+              git config user.email "{{umail}}"
+              git add .
+              git commit -m "Synchronized files from {{ansible_hostname}}"
+              git push origin main
+      args: 
+       chdir: "{{local_path}}"
+      delegate_to: localhost
+       
+  
+  always:
+    - name: delete destination directory
+      file:
+       path: "{{local_path}}"
+       state: absent
+      delegate_to: localhost
+    
