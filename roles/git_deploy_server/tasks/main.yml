@@ -24,12 +24,9 @@
       synchronize:
        src: "{{dest_dir}}{{item}}"
        dest: "{{item}}"
-       rsync_path: "sudo rsync"  # Use sudo on the remote system
        recursive: true
        rsync_opts:
-         - "--owner=root"
-
-        
+        - "--chown=root"
       with_items: "{{src_files}}"
       become: true
 
