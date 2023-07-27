@@ -1,0 +1,6 @@
+[Web]
+test01 ansible_host=192.168.56.102
+test02 ansible_host=192.168.56.102
+test03 ansible_host=192.168.56.102
+test04 ansible_host=192.168.56.102
+test05 ansible_host=192.168.56.102
