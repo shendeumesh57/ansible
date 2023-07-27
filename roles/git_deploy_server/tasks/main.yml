@@ -25,7 +25,8 @@
        src: "{{dest_dir}}{{item}}"
        dest: "{{item}}"
        rsync_opts:
-        --chown: root:root
+        - "--exclude=.git"
+        - "--chown= root:root"
 
         
       with_items: "{{src_files}}"
