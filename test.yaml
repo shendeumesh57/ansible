@@ -6,13 +6,8 @@
   
   tasks:
 
-  - name: string to list convert
-    set_fact:
-     dest_list: "{{ dest_list }} + ['{{ item }}']"
-    with_items:
-    - "{{src_files.split(',')}}"
   - name: print list
     ansible.builtin.debug:
       msg: "{{item}}"
     with_items: 
-    - "{{dest_list}}"
+    - "{{src_files}}"
