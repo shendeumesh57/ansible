@@ -26,7 +26,7 @@
        dest: "{{item}}"
        recursive: true
        rsync_opts:
-        - "--chown=root"
+        - "--chown=root.root"
       with_items: "{{src_files}}"
       become: true
 
