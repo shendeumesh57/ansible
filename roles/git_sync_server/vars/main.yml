@@ -3,6 +3,7 @@
 src_files:
  - /etc/httpd/
  - /var/www/html/
+ - /etc/hosts
 
 git_repo: 'https://{{g_token}}@github.com/shendeumesh57/NA.git'
 local_path: '/tmp/apache-server-configs'
