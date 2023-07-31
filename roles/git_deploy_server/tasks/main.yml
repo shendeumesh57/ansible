@@ -29,7 +29,15 @@
         - "--chown=root:root"
       with_items: "{{src_files}}"
       become: true
-
+    - name: Recursively change ownership of a directory
+      ansible.builtin.file:
+       path: "{{item}}"
+       state: directory
+       recurse: yes
+       owner: root
+       group: root
+      with_items: "{{src_files}}"
+      become: true
     
     - name: command
       ansible.builtin.command: /usr/sbin/apachectl configtest
