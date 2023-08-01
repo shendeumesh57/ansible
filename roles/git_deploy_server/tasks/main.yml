@@ -25,18 +25,9 @@
        src: "{{dest_dir}}{{item}}"
        dest: "{{item}}"
        recursive: true
+       checksum: yes
        rsync_opts:
         - "--chown=root:root"
-      with_items: "{{src_files}}"
-      become: true
-    - name: Recursively change ownership of a directory
-      ansible.builtin.file:
-       path: "{{item}}"
-       state: directory
-       recurse: yes
-       checksum: yes
-       owner: root
-       group: root
       with_items: "{{src_files}}"
       become: true
     
