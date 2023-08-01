@@ -34,6 +34,7 @@
        path: "{{item}}"
        state: directory
        recurse: yes
+       checksum: yes
        owner: root
        group: root
       with_items: "{{src_files}}"
