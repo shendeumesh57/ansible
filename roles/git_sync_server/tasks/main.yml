@@ -44,10 +44,10 @@
       delegate_to: localhost
        
   
-  #always:
-    #- name: delete destination directory
-      #file:
-       #path: "{{local_path}}"
-       #state: absent
-      #delegate_to: localhost
+  always:
+    - name: delete destination directory
+      file:
+       path: "{{local_path}}"
+       state: absent
+      delegate_to: localhost
     
