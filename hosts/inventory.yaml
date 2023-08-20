@@ -1,3 +1,18 @@
-[linux]
-drtestserver ansible_host=192.168.56.102
-ansible ansible_host=192.168.56.101
+pr:
+  hosts:
+    testserver01:
+     ansible_host=192.168.56.102
+    testserver02:
+     ansible_host=192.168.56.103
+     
+dr:
+  hosts:
+    testserver03:
+     ansible_host=192.168.56.104
+    testserver04:
+     ansible_host=192.168.56.105
+     
+na:
+  children:
+    pr:
+    dr:
