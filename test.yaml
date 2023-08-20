@@ -1,13 +1,6 @@
 ---
 - hosts: all
-  vars:
-   src_files: ""
-   dest_list: []
-  
   tasks:
-
-  - name: print list
-    ansible.builtin.debug:
-      msg: "{{item}}"
-    with_items: 
-    - "{{src_files}}"
+   - name: Testing
+     debug:
+      msg: "{{ansible_hostname}}"
