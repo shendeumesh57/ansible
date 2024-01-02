@@ -1,0 +1,84 @@
+--- 
+     - name: Read secret file
+       include_vars: "./secret.yaml"
+
+     - name: Remove space and upper case from url
+       ansible.builtin.set_fact:
+        INSTANCE_URL: "{{i_url | lower | trim }}"
+     - name: Global Variable
+       ansible.builtin.set_fact:
+        cert_dir_path: "{{cert_path}}/{{INSTANCE_URL}}"
+        key_passphrase: "{{cert_path}}/{{INSTANCE_URL}}/{{INSTANCE_URL}}.pph"
+
+     - name: Check cert path 
+       ansible.builtin.stat:
+        path: "{{cert_dir_path}}"
+       register: p
+     - name: End the play -->> If certificate directory does not exist.
+       include: "end_play.yaml"
+       when: p.stat.exists == false
+    
+     - name: check pph file
+       ansible.builtin.stat:
+        path: "{{key_passphrase}}"
+       register: info
+  
+     - name : Getting private key id
+       include: "pph_no.yaml"
+       when: info.stat.exists == false
+       ignore_errors: true
+
+     - name : Getting private key id
+       include: "pph_yes.yaml"
+       when: info.stat.exists == true
+       ignore_errors: true
+
+     - name: Certificate and key validation
+       include: "end_play1.yaml"
+       when: (cert_id != key_id)
+     
+     - name: Make sure tower has no files left
+       block:
+       - name: clone git repo
+         ansible.builtin.git: 
+          repo: "{{git_repo}}"
+          dest: "{{local_path}}"
+          version: main
+          force: yes
+         delegate_to: localhost
+         run_once: true
+         no_log: true
+     
+       - name: Private key
+         ansible.builtin.synchronize:
+          src: "{{item}}"
+          dest: "{{local_path}}/drtestserver/cert"
+          rsync_path: "sudo rsync"
+          mode: pull
+         delegate_to: localhost
+         failed_when: false
+         no_log: True
+         with_items:
+         - "{{cert_path}}/{{INSTANCE_URL}}/{{INSTANCE_URL}}.crt"
+         - "{{cert_path}}/{{INSTANCE_URL}}/{{INSTANCE_URL}}.key"
+         - "{{cert_path}}/{{INSTANCE_URL}}/{{INSTANCE_URL}}.pph"
+
+       - name: Git add files..., commit...,push
+         ansible.builtin.shell: |
+              git config user.name "{{user}}"
+              git config user.email "{{umail}}"
+              git add .
+              git commit -m "test.com cert/key/pph added in to git"
+              git push origin main
+         args: 
+          chdir: "{{local_path}}/drtestserver/cert"
+         delegate_to: localhost
+         run_once: true
+
+       always:
+       - name: delete destination dir
+         ansible.builtin.file:
+          path: "{{ local_path }}"
+          state: absent
+         delegate_to: localhost
+         run_once: true

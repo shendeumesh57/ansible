@@ -1,0 +1,9 @@
+---
+- hosts: web
+  gather_facts: yes
+  vars_files:
+
+  tasks:
+
+  roles:
+   - ../roles/dmz_ssl

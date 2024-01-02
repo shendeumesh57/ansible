@@ -1,0 +1,17 @@
+---
+  - name : Getting private key id
+    ansible.builtin.shell:
+      cmd: openssl rsa -noout -modulus -in *.key| openssl md5
+      chdir: "{{cert_dir_path}}"
+    register: key_id
+  - name : Getting cert id
+    ansible.builtin.shell:
+      cmd: openssl x509 -noout -modulus -in *.crt| openssl md5
+      chdir: "{{cert_dir_path}}"
+    register: cert_id
+
+  - name: setting variable
+    ansible.builtin.set_fact: 
+      key_id : "{{ key_id.stdout_lines }}"
+      cert_id : "{{ cert_id.stdout_lines }}"
+
