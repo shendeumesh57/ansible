@@ -1,0 +1,8 @@
+---
+# vars file for cert_manage
+   cert_path: "{{ certificate_default_path | default('/home/umesh/ssl/cert', true) }}"
+   i_url: "shende.com"
+   git_repo: 'https://{{g_token}}@github.com/shendeumesh57/NA.git'
+   local_path: '/tmp/apache-server-configs'
+   user: shendeumesh57
+   umail: shendeumesh57@gmail.com
