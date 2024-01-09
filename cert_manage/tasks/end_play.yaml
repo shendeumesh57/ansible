@@ -1,0 +1,8 @@
+---
+  - name: 
+    debug:
+     msg: URL is incorrect or certificate path does not exist on server
+  
+  - name: End the play -->> If certificate directory not exist.
+    ansible.builtin.meta: end_play
+
